@@ -7,6 +7,14 @@ class Booklist {
    * @constructor
    * @author: J
    */
+  constructor() {
+    this._books = [];
+    this._NumberOfReadBooks = 0;
+    this._NumberOfUnreadBooks = 0;
+    this._nextBook = null;
+    this._currentBook = null;
+    this._lastBookRead = null;
+  }
 }
 
 /* @class Book representing a single book. */
