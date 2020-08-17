@@ -15,6 +15,14 @@ class Booklist {
     this._currentBook = null;
     this._lastBookRead = null;
   }
+  /**
+   * Adds a new book to the list
+   *
+   * @param {Book} book The book to add.
+   */
+  add(book) {
+    this._books.push(book);
+  }
 }
 
 /* @class Book representing a single book. */
