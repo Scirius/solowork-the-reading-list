@@ -1,5 +1,5 @@
 /** @class Booklist representing a list of books. */
-class Booklist {
+class BookList {
   /**
    * Creates an instance of Booklist
    * basic OOP excercise at WBS Coding School
@@ -23,6 +23,27 @@ class Booklist {
   add(book) {
     this._books.push(book);
   }
+  /**
+   * Finishes the current book
+   * marks the book that is currently being read as "read"
+   * gives it a read date of new Date(Date.now())
+   * changes the last book read to be the book that just got finished
+   * changes the current book to be the next book to be read
+   * changes the next book to be read property to be the first unread book you find in the list of books
+   *
+   */
+  finishCurrentBook() {
+    if (!this._currentBook) {
+      console.log("There is no book you're currently reading.");
+    } else {
+      this._currentBook.read = true;
+      this._currentBook.dateRead = new Date(Date.now());
+      this._lastBookRead = this._currentBook;
+    }
+
+    //this._previousBook = this._currentBook;
+    //this._currentBook = this._books.find((book) => book.read === false);
+  }
 }
 
 /* @class Book representing a single book. */
@@ -38,11 +59,45 @@ class Book {
    * @param {boolean} read The status of the book being read
    * @param {date} dateRead The date of the book being read
    */
-  constructor(title, genre, author, read) {
+  constructor(title, genre, author, read = false) {
     this._title = title;
     this._genre = genre;
     this._author = author;
     this._read = read;
-    this._dateRead = null;
+    this._dateRead = null; //finished
+  }
+  /**
+   * returns read status via getter
+   */
+  get read() {
+    return this._read;
+  }
+
+  /**
+   * marks book as read
+   */
+  markAsFinished() {
+    this._read = true;
+  }
+
+  /**
+   * sets book dateRead (finish date)
+   */
+  set dateRead(finishDate) {
+    this._dateRead = finishDate;
   }
 }
+
+/**
+ * Example bookList
+ */
+const bookList = new BookList();
+bookList.add(
+  new Book("The Mambo Kings Play Songs of Love", "novel", "Oscar Hijuelos")
+);
+bookList.add(new Book("Foundation", "Science-fiction", "Isaac Asimov"));
+bookList.add(new Book("Endgame", "Play", "Samuel Beckett", true));
+bookList.add(new Book("On the Road", "Novel", "Jack Kerouac"));
+bookList.add(new Book("The Myth of Sisyphus", "Essay", "Albert Camus", true));
+
+console.log(bookList);
