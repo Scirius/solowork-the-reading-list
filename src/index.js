@@ -1,4 +1,6 @@
-/** @class Booklist representing a list of books. */
+/** @class Booklist representing a list of books.
+ * see readme.md for excercise description
+ */
 class BookList {
   /**
    * Creates an instance of Booklist
@@ -81,7 +83,8 @@ class Book {
   }
 
   /**
-   * sets book dateRead (finish date)
+   * 1sets book dateRead (finish date)
+   * @param {date} finishDate The date of the book being finished
    */
   set dateRead(finishDate) {
     this._dateRead = finishDate;
