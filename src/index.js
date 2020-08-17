@@ -11,19 +11,47 @@ class BookList {
    */
   constructor() {
     this._books = [];
-    this._NumberOfReadBooks = 0;
-    this._NumberOfUnreadBooks = 0;
+    this._numberOfReadBooks = 0;
+    this._numberOfUnreadBooks = 0;
     this._nextBook = null;
     this._currentBook = null;
     this._lastBookRead = null;
   }
+
+  get NumberOfReadBooks() {
+    return this._numberOfReadBooks;
+  }
+
   /**
-   * Adds a new book to the list
+   * Adds a new book to the list and counts read/unread
    *
    * @param {Book} book The book to add.
    */
   add(book) {
     this._books.push(book);
+    if (book.read) {
+      this._numberOfReadBooks++;
+    } else {
+      this._numberOfUnreadBooks++;
+    }
+  }
+  /**
+   *  Actually starts reading
+   */
+  startReading() {
+    if (this._books.length == 0) {
+      console.log("You have no books in your list to read.");
+      return;
+    } else {
+      var newBook = this._books.find((book) => book.read === false);
+      if (newBook) {
+        console.log(
+          "Ok, you start reading with your first unread book on list. {newBook._title}"
+        );
+      } else {
+        console.log("Oh no, you have no more unread books!");
+      }
+    }
   }
   /**
    * Finishes the current book
@@ -95,12 +123,15 @@ class Book {
  * Example bookList
  */
 const bookList = new BookList();
+
 bookList.add(
   new Book("The Mambo Kings Play Songs of Love", "novel", "Oscar Hijuelos")
 );
-bookList.add(new Book("Foundation", "Science-fiction", "Isaac Asimov"));
+bookList.add(new Book("Foundation", "Science-fiction", "Isaac Asimov", true));
 bookList.add(new Book("Endgame", "Play", "Samuel Beckett", true));
 bookList.add(new Book("On the Road", "Novel", "Jack Kerouac"));
-bookList.add(new Book("The Myth of Sisyphus", "Essay", "Albert Camus", true));
+bookList.add(new Book("The Myth of Sisyphus", "Essay", "Albert Camus"));
 
 console.log(bookList);
+console.log(bookList.NumberOfReadBooks);
+bookList.startReading();
